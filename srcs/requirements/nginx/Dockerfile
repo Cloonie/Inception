@@ -1,5 +1,6 @@
-# Use the official NGINX image as a base image
 FROM nginx:latest
+
+WORKDIR
 
 # Copy the custom NGINX configuration to the container
 COPY conf /etc/nginx/conf.d/
