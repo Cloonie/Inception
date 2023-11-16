@@ -1,0 +1,14 @@
+version: '3'
+
+volumes:
+  wordpress_database:
+  wordpress_website_files:
+
+networks:
+  inception:
+    name: inception
+
+services:
+  nginx:
+  mariadb:
+  wordpress:
