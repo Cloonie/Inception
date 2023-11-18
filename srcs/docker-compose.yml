@@ -9,6 +9,7 @@ services:
 #         ./requirements/nginx/
 #     ports:
 #       - "443:443"
+#     restart: always
   mariadb:
     container_name: mariadb_con
     image: mariadb_img
@@ -17,6 +18,7 @@ services:
         ./requirements/mariadb/
     ports:
       - "3306:3306"
+    restart: always
     volumes:
       - wp_database:/var/run/mysqld
     environment:
