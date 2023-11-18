@@ -1,11 +1,20 @@
+# Takes in a base image from Dockerhub, bookworm is the development codename for Debian 12.
 FROM debian:bookworm
 
+# Retrives latest package lists and install nginx and openssl with option -y to auto-confirm yes.
 RUN apt-get update
 RUN apt-get install nginx -y
-    # apt-get install openssl \
-    # openssl req -new -newkey rsa:2048 -nodes -keyout web-service.key -out web-service.csr
+RUN apt-get install openssl -y
 
-COPY ./nginx.conf /etc/nginx
+# Removes the package lists that were downloaded during the apt-get update process.
+RUN rm -rf /var/lib/apt/lists/*
+
+RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+    -keyout /etc/nginx/nginx.key \
+    -out /etc/nginx/nginx.crt \
+    -subj "/C=MY/ST=State/L=City/O=Organization/CN=mliew.42.fr"
+
+COPY ./nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 443
 
