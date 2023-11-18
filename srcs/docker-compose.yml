@@ -1,11 +1,31 @@
 version: '3'
 
 services:
-  nginx:
-    container_name: nginx_con
-    image: nginx_img
+#   nginx:
+#     container_name: nginx_con
+#     image: nginx_img
+#     build:
+#       context:
+#         ./requirements/nginx/
+#     ports:
+#       - "443:443"
+  mariadb:
+    container_name: mariadb_con
+    image: mariadb_img
     build:
       context:
-        ./requirements/nginx/
+        ./requirements/mariadb/
     ports:
-      - "443:443"
+      - "3306:3306"
+    volumes:
+      - wp_database:/var/run/mysqld
+    environment:
+      MYSQL_USER: mliew
+      MYSQL_PASSWORD: mliew123
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: mydatabase
+
+volumes:
+  wp_database:
+  # wp_files:
+

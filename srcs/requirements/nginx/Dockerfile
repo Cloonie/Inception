@@ -1,3 +1,5 @@
+# Nginx Dockerfile
+
 # Takes in a base image from Dockerhub, bookworm is the development codename for Debian 12.
 FROM debian:bookworm
 

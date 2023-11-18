@@ -1,13 +1,12 @@
 # WordPress Dockerfile
-FROM debian:bullseye-slim
 
-# Install necessary packages for WordPress
-RUN apt-get update && apt-get install -y \
-    wordpress \
-    php7.4-fpm \
-    && rm -rf /var/lib/apt/lists/*
+# Takes in a base image from Dockerhub, bookworm is the development codename for Debian 12.
+FROM debian:bookworm
 
-# Configure PHP-FPM
-RUN sed -i 's/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/' /etc/php/7.4/fpm/php.ini
+# Retrives latest package lists and install wordpress and php-fpm with option -y to auto-confirm yes.
+RUN apt-get update
+RUN apt-get install wordpress -y
+RUN apt-get install php7.4-fpm -y
 
-CMD ["php-fpm7.4", "-F"]
+# Removes the package lists that were downloaded during the apt-get update process.
+RUN rm -rf /var/lib/apt/lists/*

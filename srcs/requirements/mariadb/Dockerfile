@@ -1,12 +1,24 @@
 # MariaDB Dockerfile
-FROM debian:bullseye-slim
 
-# Install MariaDB
-RUN apt-get update && apt-get install -y \
-    mariadb-server \
-    && rm -rf /var/lib/apt/lists/*
+# Takes in a base image from Dockerhub, bookworm is the development codename for Debian 12.
+FROM debian:bookworm
 
-# Copy custom MariaDB configuration if needed
-# COPY my.cnf /etc/mysql/my.cnf
+# Retrives latest package lists and install mariadb-server with option -y to auto-confirm yes.
+RUN apt-get update
+RUN apt-get install mariadb-server -y
 
-CMD ["mysqld", "--innodb-use-native-aio=0"]
+# Removes the package lists that were downloaded during the apt-get update process.
+RUN rm -rf /var/lib/apt/lists/*
+
+# Manually make a directory and set permissions.
+RUN mkdir -p /var/run/mysqld \
+    && chown -R mysql:mysql /var/run/mysqld
+
+# Copy custom MariaDB configuration.
+COPY my.cnf /etc/mysql/my.cnf
+
+# Expose the default MariaDB port.
+EXPOSE 3306
+
+# Start MariaDB on container startup.
+CMD ["mysqld", "--user=mysql", "--console", "--verbose"]
