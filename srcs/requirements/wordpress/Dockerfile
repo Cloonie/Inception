@@ -1,30 +1,13 @@
-# Use Debian 12 as the base image
-FROM debian:12
+# WordPress Dockerfile
+FROM debian:bullseye-slim
 
-# Install required packages
-RUN apt-get update && \
-    apt-get install -y \
-        php-fpm \
-        php-mysql \
-        php-curl \
-        php-gd \
-        php-mbstring \
-        php-xml \
-        php-xmlrpc \
-        php-zip \
-        unzip \
-        wget
+# Install necessary packages for WordPress
+RUN apt-get update && apt-get install -y \
+    wordpress \
+    php7.4-fpm \
+    && rm -rf /var/lib/apt/lists/*
 
-# Create the /var/www/html directory
-RUN mkdir -p /var/www/html
+# Configure PHP-FPM
+RUN sed -i 's/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/' /etc/php/7.4/fpm/php.ini
 
-# Download and install WordPress
-RUN wget -O /tmp/wordpress.tar.gz https://wordpress.org/latest.tar.gz && \
-    tar -zxvf /tmp/wordpress.tar.gz -C /var/www/html/ && \
-    rm /tmp/wordpress.tar.gz
-
-# Expose port
-EXPOSE 9000
-
-# Start PHP-FPM with the built-in web server
-CMD ["php", "-S", "0.0.0.0:9000", "-t", "/var/www/html/wordpress"]
+CMD ["php-fpm7.4", "-F"]

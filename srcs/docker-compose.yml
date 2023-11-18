@@ -1,14 +1,61 @@
 version: '3'
 
-volumes:
-  wordpress_database:
-  wordpress_website_files:
-
-networks:
-  inception:
-    name: inception
-
 services:
-  nginx:
-  mariadb:
-  wordpress:
+  mysql:
+    image: mariadb
+    volumes:
+      - /data/mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql_root_pass
+      MYSQL_DATABASE: db_name
+      MYSQL_USER: user_name
+      MYSQL_PASSWORD: user_pass
+    restart: always
+
+  # nginx:
+  #   build:
+  #     context: ./requirements/nginx
+  #   container_name: nginx
+  #   ports:
+  #     - "443:443"
+    # networks:
+    #   - inception_network
+    # depends_on:
+    #   - wordpress
+
+#   wordpress:
+#     build:
+#       context: ./requirements/wordpress
+#     container_name: wordpress
+#     volumes:
+#       - wp_database:/var/lib/mysql
+#       - wp_files:/var/www/html
+#     environment:
+#       - MYSQL_ROOT_PASSWORD=root
+#       - MYSQL_DATABASE=wordpress
+#       - MYSQL_USER=wordpress
+#       - MYSQL_PASSWORD=password
+#     networks:
+#       - inception_network
+#     depends_on:
+#       - mariadb
+
+#   mariadb:
+#     build:
+#       context: ./requirements/mariadb
+#     container_name: mariadb
+#     environment:
+#       - MYSQL_ROOT_PASSWORD=root
+#       - MYSQL_DATABASE=wordpress
+#       - MYSQL_USER=wordpress
+#       - MYSQL_PASSWORD=password
+#     networks:
+#       - inception_network
+
+# networks:
+#   inception_network:
+#     driver: bridge
+
+# volumes:
+#   wp_database:
+#   wp_files:
