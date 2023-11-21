@@ -10,3 +10,5 @@ RUN apt-get install php7.4-fpm -y
 
 # Removes the package lists that were downloaded during the apt-get update process.
 RUN rm -rf /var/lib/apt/lists/*
+
+EXPOSE 9000

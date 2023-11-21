@@ -10,22 +10,31 @@ services:
 #     ports:
 #       - "443:443"
 #     restart: always
-  mariadb:
-    container_name: mariadb_con
-    image: mariadb_img
+  # mariadb:
+  #   container_name: mariadb_con
+  #   image: mariadb_img
+  #   build:
+  #     context:
+  #       ./requirements/mariadb/
+  #   ports:
+  #     - "3306:3306"
+  #   restart: always
+  #   volumes:
+  #     - wp_database:/var/run/mysqld
+  #   environment:
+  #     MYSQL_USER: mliew
+  #     MYSQL_PASSWORD: mliew123
+  #     MYSQL_ROOT_PASSWORD: root123
+  #     MYSQL_DATABASE: mydatabase
+  wordpress:
+    container_name: wordpress_con
+    image: wordpress_img
     build:
       context:
-        ./requirements/mariadb/
+        ./requirements/wordpress/
     ports:
-      - "3306:3306"
+      - "9000:9000"
     restart: always
-    volumes:
-      - wp_database:/var/run/mysqld
-    environment:
-      MYSQL_USER: mliew
-      MYSQL_PASSWORD: mliew123
-      MYSQL_ROOT_PASSWORD: root123
-      MYSQL_DATABASE: mydatabase
 
 volumes:
   wp_database:
