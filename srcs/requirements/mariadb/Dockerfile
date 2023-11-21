@@ -1,7 +1,7 @@
 # MariaDB Dockerfile
 
-# Takes in a base image from Dockerhub, bookworm is the development codename for Debian 12.
-FROM debian:bookworm
+# Takes in a base image from Dockerhub, bullseye is the development codename for Debian 11.
+FROM debian:11
 
 # Retrives latest package lists and install mariadb-server with option -y to auto-confirm yes.
 RUN apt-get update

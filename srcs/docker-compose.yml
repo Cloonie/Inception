@@ -1,15 +1,15 @@
 version: '3'
 
 services:
-#   nginx:
-#     container_name: nginx_con
-#     image: nginx_img
-#     build:
-#       context:
-#         ./requirements/nginx/
-#     ports:
-#       - "443:443"
-#     restart: always
+  # nginx:
+  #   container_name: nginx_con
+  #   image: nginx_img
+  #   build:
+  #     context:
+  #       ./requirements/nginx/
+  #   ports:
+  #     - "443:443"
+  #   restart: always
   # mariadb:
   #   container_name: mariadb_con
   #   image: mariadb_img
@@ -22,10 +22,12 @@ services:
   #   volumes:
   #     - wp_database:/var/run/mysqld
   #   environment:
-  #     MYSQL_USER: mliew
-  #     MYSQL_PASSWORD: mliew123
-  #     MYSQL_ROOT_PASSWORD: root123
-  #     MYSQL_DATABASE: mydatabase
+  #     MYSQL_ROOT_PASSWORD: your_root_password
+  #     MYSQL_DATABASE: your_db_name
+  #     MYSQL_USER: your_db_user
+  #     MYSQL_PASSWORD: your_db_password
+  #   env_file:
+  #     - .env
   wordpress:
     container_name: wordpress_con
     image: wordpress_img
@@ -35,8 +37,16 @@ services:
     ports:
       - "9000:9000"
     restart: always
+    volumes:
+      - wp_database:/var/lib/mysql
+      - wp_files:/var/www/html
+    # environment:
+    #   WORDPRESS_DB_HOST: mariadb
+    #   WORDPRESS_DB_USER: your_db_user
+    #   WORDPRESS_DB_PASSWORD: your_db_password
+    #   WORDPRESS_DB_NAME: your_db_name
 
 volumes:
   wp_database:
-  # wp_files:
+  wp_files:
 

@@ -1,7 +1,7 @@
 # Nginx Dockerfile
 
-# Takes in a base image from Dockerhub, bookworm is the development codename for Debian 12.
-FROM debian:bookworm
+# Takes in a base image from Dockerhub, bullseye is the development codename for Debian 11.
+FROM debian:11
 
 # Retrives latest package lists and install nginx and openssl with option -y to auto-confirm yes.
 RUN apt-get update
@@ -9,7 +9,7 @@ RUN apt-get install nginx -y
 RUN apt-get install openssl -y
 
 # Removes the package lists that were downloaded during the apt-get update process.
-RUN rm -rf /var/lib/apt/lists/*
+# RUN rm -rf /var/lib/apt/lists/*
 
 # Create self-signed https certificate
 RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
