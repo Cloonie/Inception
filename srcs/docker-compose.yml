@@ -1,52 +1,55 @@
 version: '3'
 
 services:
-  # nginx:
-  #   container_name: nginx_con
-  #   image: nginx_img
-  #   build:
-  #     context:
-  #       ./requirements/nginx/
-  #   ports:
-  #     - "443:443"
-  #   restart: always
-  # mariadb:
-  #   container_name: mariadb_con
-  #   image: mariadb_img
-  #   build:
-  #     context:
-  #       ./requirements/mariadb/
-  #   ports:
-  #     - "3306:3306"
-  #   restart: always
-  #   volumes:
-  #     - wp_database:/var/run/mysqld
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: your_root_password
-  #     MYSQL_DATABASE: your_db_name
-  #     MYSQL_USER: your_db_user
-  #     MYSQL_PASSWORD: your_db_password
-  #   env_file:
-  #     - .env
+  nginx:
+    container_name: nginx_con
+    image: nginx_img
+    build:
+      context:
+        ./requirements/nginx/
+    networks:
+      - inception
+    ports:
+      - "443:443"
+    restart: always
+    env_file:
+      - .env
+
+  mariadb:
+    container_name: mariadb_con
+    image: mariadb_img
+    build:
+      context:
+        ./requirements/mariadb/
+    networks:
+      - inception
+    ports:
+      - "3306:3306"
+    restart: always
+    volumes:
+      - wp_database:/var/lib/mysql
+    env_file:
+      - .env
+
   wordpress:
     container_name: wordpress_con
     image: wordpress_img
     build:
       context:
         ./requirements/wordpress/
+    networks:
+      - inception
     ports:
       - "9000:9000"
     restart: always
     volumes:
-      - wp_database:/var/lib/mysql
       - wp_files:/var/www/html
-    # environment:
-    #   WORDPRESS_DB_HOST: mariadb
-    #   WORDPRESS_DB_USER: your_db_user
-    #   WORDPRESS_DB_PASSWORD: your_db_password
-    #   WORDPRESS_DB_NAME: your_db_name
+    env_file:
+      - .env
 
 volumes:
   wp_database:
   wp_files:
 
+networks:
+  inception:

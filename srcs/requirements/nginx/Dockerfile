@@ -1,7 +1,7 @@
 # Nginx Dockerfile
 
-# Takes in a base image from Dockerhub, bullseye is the development codename for Debian 11.
-FROM debian:11
+# Takes in a base image from Dockerhub, buster is the development codename for Debian 10.
+FROM debian:buster
 
 # Retrives latest package lists and install nginx and openssl with option -y to auto-confirm yes.
 RUN apt-get update
