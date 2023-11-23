@@ -3,15 +3,17 @@ FROM debian:buster
 RUN apt-get update
 RUN apt-get install -y \
 	wget \
+	tar \
 	php \
 	php-fpm \
 	php-mysql \
 	php-cgi \
 	php-pdo \
-	php-gd php-cli \
+	php-gd \
+	php-cli \
 	php-mbstring
 
-COPY ./www.conf /etc/php/7.3/fpm/pool.d/
+# COPY ./www.conf /etc/php/7.3/fpm/pool.d/
 
 RUN mkdir /run/php
 

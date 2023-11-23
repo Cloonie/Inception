@@ -22,7 +22,7 @@ up:
 # Stops and removes services defined in 'docker-compose.yml',
 # Option -v is to remove the volumes along with the containers and networks.
 down:
-	$(DC) $(FILE) down -v
+	$(DC) $(FILE) down
 
 # Stops all containers, removes all docker containers, images, volumes, networks.
 clean:

@@ -11,21 +11,7 @@ services:
       - "443:443"
     restart: always
     volumes:
-      - wp_files:/var/www/html
-    env_file:
-      - .env
-
-  mariadb:
-    container_name: mariadb_con
-    image: mariadb_img
-    build: ./requirements/mariadb/
-    networks:
-      - inception
-    ports:
-      - "3306:3306"
-    restart: always
-    volumes:
-      - wp_database:/var/lib/mysql
+      - webfiles:/var/www/html
     env_file:
       - .env
 
@@ -39,15 +25,29 @@ services:
       - "9000:9000"
     restart: always
     volumes:
-      - wp_files:/var/www/html
+      - webfiles:/var/www/html
     env_file:
       - .env
     depends_on:
       - mariadb
 
+  mariadb:
+    container_name: mariadb_con
+    image: mariadb_img
+    build: ./requirements/mariadb/
+    networks:
+      - inception
+    ports:
+      - "3306:3306"
+    restart: always
+    volumes:
+      - database:/var/lib/mysql
+    env_file:
+      - .env
+
 volumes:
-  wp_database:
-  wp_files:
+  database:
+  webfiles:
 
 networks:
   inception:
