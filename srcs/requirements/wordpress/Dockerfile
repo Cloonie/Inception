@@ -1,16 +1,26 @@
 FROM debian:buster
 
-RUN apt-get update && apt-get install -y \
-		wget \
-		vim \
-		php \
-		php-fpm \
-		php-mysql
+RUN apt-get update
+RUN apt-get install -y \
+	wget \
+	php \
+	php-fpm \
+	php-mysql \
+	php-cgi \
+	php-pdo \
+	php-gd php-cli \
+	php-mbstring
 
-COPY ./wordpress.sh ./wordpress.sh
+COPY ./www.conf /etc/php/7.3/fpm/pool.d/
 
-RUN chmod +x ./wordpress.sh
+RUN mkdir /run/php
+
+COPY ./create_wordpress.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/create_wordpress.sh
+ENTRYPOINT ["/usr/local/bin/create_wordpress.sh"]
+
+WORKDIR /var/www/html/
 
 EXPOSE 9000
 
-CMD ["./wordpress.sh"]
+CMD ["/usr/sbin/php-fpm7.3", "-F"]

@@ -4,23 +4,21 @@ services:
   nginx:
     container_name: nginx_con
     image: nginx_img
-    build:
-      context:
-        ./requirements/nginx/
+    build: ./requirements/nginx/
     networks:
       - inception
     ports:
       - "443:443"
     restart: always
+    volumes:
+      - wp_files:/var/www/html
     env_file:
       - .env
 
   mariadb:
     container_name: mariadb_con
     image: mariadb_img
-    build:
-      context:
-        ./requirements/mariadb/
+    build: ./requirements/mariadb/
     networks:
       - inception
     ports:
@@ -34,9 +32,7 @@ services:
   wordpress:
     container_name: wordpress_con
     image: wordpress_img
-    build:
-      context:
-        ./requirements/wordpress/
+    build: ./requirements/wordpress/
     networks:
       - inception
     ports:
@@ -46,6 +42,8 @@ services:
       - wp_files:/var/www/html
     env_file:
       - .env
+    depends_on:
+      - mariadb
 
 volumes:
   wp_database:
@@ -53,3 +51,4 @@ volumes:
 
 networks:
   inception:
+    driver: bridge
