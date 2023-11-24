@@ -13,7 +13,7 @@ RUN apt-get install -y \
 	php-cli \
 	php-mbstring
 
-# COPY ./www.conf /etc/php/7.3/fpm/pool.d/
+COPY ./www.conf /etc/php/7.3/fpm/pool.d/
 
 RUN mkdir /run/php
 
