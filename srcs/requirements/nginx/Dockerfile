@@ -1,5 +1,5 @@
 # Takes in a base image from Dockerhub, buster is the development codename for Debian 10.
-FROM debian:buster
+FROM debian:bullseye
 
 # Retrives latest package lists and install nginx and openssl with option -y to auto-confirm yes.
 RUN apt-get update
