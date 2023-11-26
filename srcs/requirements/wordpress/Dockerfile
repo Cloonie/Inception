@@ -4,14 +4,14 @@ RUN apt-get update
 RUN apt-get install -y \
 	wget \
 	tar \
-	php-fpm \
-	php \
 	php-mysql \
-	php-cgi \
-	php-pdo \
-	php-gd \
-	php-cli \
-	php-mbstring
+	php-fpm
+	# php \
+	# php-cgi \
+	# php-pdo \
+	# php-gd \
+	# php-cli \
+	# php-mbstring
 
 COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/
 
