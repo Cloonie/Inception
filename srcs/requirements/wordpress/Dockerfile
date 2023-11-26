@@ -4,8 +4,8 @@ RUN apt-get update
 RUN apt-get install -y \
 	wget \
 	tar \
-	php \
 	php-fpm \
+	php \
 	php-mysql \
 	php-cgi \
 	php-pdo \
@@ -13,11 +13,11 @@ RUN apt-get install -y \
 	php-cli \
 	php-mbstring
 
-COPY ./www.conf /etc/php/7.3/fpm/pool.d/
+COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/
 
 RUN mkdir /run/php
 
-COPY ./create_wordpress.sh /usr/local/bin/
+COPY ./tools/create_wordpress.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/create_wordpress.sh
 ENTRYPOINT ["/usr/local/bin/create_wordpress.sh"]
 

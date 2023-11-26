@@ -47,7 +47,11 @@ services:
 
 volumes:
   database:
+    driver_opts:
+      device: /home/mliew/data/database
   webfiles:
+    driver_opts:
+      device: /home/mliew/data/webfiles
 
 networks:
   inception:
