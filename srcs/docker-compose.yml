@@ -47,12 +47,17 @@ services:
 
 volumes:
   database:
+    driver: local
     driver_opts:
+      type: none
       device: /home/mliew/data/database
+      o: bind
   webfiles:
+    driver: local
     driver_opts:
+      type: none
       device: /home/mliew/data/webfiles
-
+      o: bind
 networks:
   inception:
     driver: bridge
