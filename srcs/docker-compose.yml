@@ -2,8 +2,8 @@ version: '3'
 
 services:
   nginx:
-    container_name: nginx_con
-    image: nginx_img
+    container_name: nginx
+    image: nginx
     build: ./requirements/nginx/
     networks:
       - inception
@@ -16,8 +16,8 @@ services:
       - .env
 
   wordpress:
-    container_name: wordpress_con
-    image: wordpress_img
+    container_name: wordpress
+    image: wordpress
     build: ./requirements/wordpress/
     networks:
       - inception
@@ -32,8 +32,8 @@ services:
       - mariadb
 
   mariadb:
-    container_name: mariadb_con
-    image: mariadb_img
+    container_name: mariadb
+    image: mariadb
     build: ./requirements/mariadb/
     networks:
       - inception

@@ -17,6 +17,8 @@ build:
 # Starts services defined in 'docker-compose.yml',
 # Option -d is to run it in the background.
 up:
+	mkdir -p /home/mliew/data/database
+	mkdir -p /home/mliew/data/webfiles
 	$(DC) $(FILE) up -d
 
 # Stops and removes services defined in 'docker-compose.yml',
