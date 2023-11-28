@@ -9,8 +9,7 @@ then
 	echo "Database already exists"
 else
 
-mysql_secure_installation << EOF
-
+mysql_secure_installation <<EOF
 y
 $MYSQL_ROOT_PASSWORD
 $MYSQL_ROOT_PASSWORD

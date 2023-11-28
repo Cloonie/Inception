@@ -1,5 +1,5 @@
 # Takes in a base image from Dockerhub, buster is the development codename for Debian 10.
-FROM debian:bullseye
+FROM debian:buster
 
 # Retrives latest package lists and install nginx and openssl with option -y to auto-confirm yes.
 RUN apt-get update
@@ -16,7 +16,7 @@ RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
     -subj "/C=MY/ST=KL/L=Subang/O=42/CN=mliew.42.fr"
 
 # Copy the local nginx.conf into the docker container
-COPY ./conf/nginx.conf /etc/nginx/nginx.conf
+COPY ./nginx.conf /etc/nginx/nginx.conf
 
 # Open the port 443
 EXPOSE 443

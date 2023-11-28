@@ -1,4 +1,4 @@
-FROM debian:bullseye
+FROM debian:buster
 
 RUN apt-get update
 RUN apt-get install -y \
@@ -13,7 +13,7 @@ RUN mkdir -p /var/run/mysqld \
 && chmod 777 /var/run/mysqld
 
 # Copy shell script and set permissions
-COPY ./tools/mariadb.sh /usr/local/bin/
+COPY ./mariadb.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/mariadb.sh
 
 EXPOSE 3306
