@@ -4,7 +4,6 @@
 DC		=	docker-compose
 FILE	=	-f srcs/docker-compose.yml
 
-
 # ~~~ Targets ~~~
 
 # Default target when run 'make' without any target.
@@ -33,6 +32,9 @@ clean:
 	docker rmi -f $$(docker images -qa) || true
 	docker volume rm $$(docker volume ls -q) || true
 	docker network rm $$(docker network ls -q) || true
+
+# Removes local wordpress and mariadb files !Use at own Risk!
+rm_local:
 	rm -rf /home/mliew/data/database/*
 	rm -rf /home/mliew/data/webfiles/*
 
@@ -41,4 +43,4 @@ re: clean build up
 
 # Phony targets are not actual files; instead,
 # they are names for tasks that don't represent real files or file patterns.
-.PHONY: build up down logs clean all
+.PHONY: build up down logs clean all rm_local
