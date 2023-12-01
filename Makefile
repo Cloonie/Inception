@@ -1,12 +1,16 @@
-# ~~~ Makefile ~~~
+DC			=	docker-compose
+FILE		=	-f srcs/docker-compose.yml
 
-# ~~~ Variables ~~~
-DC		=	docker-compose
-FILE	=	-f srcs/docker-compose.yml
+UNAME := $(shell uname)
+ifeq ($(UNAME), Linux)
+	DATABASE	=	/home/mliew/data/database
+	WEBFILES	=	/home/mliew/data/webfiles
+endif
+ifeq ($(UNAME), Darwin)
+	DATABASE	=	/Users/mliew/data/database
+	WEBFILES	=	/Users/mliew/data/webfiles
+endif
 
-# ~~~ Targets ~~~
-
-# Default target when run 'make' without any target.
 all: build up
 
 # Builds images defined as services in 'docker-compose.yml'.
@@ -16,8 +20,8 @@ build:
 # Starts services defined in 'docker-compose.yml',
 # Option -d is to run it in the background.
 up:
-	mkdir -p /home/mliew/data/database
-	mkdir -p /home/mliew/data/webfiles
+	mkdir -p $(DATABASE)
+	mkdir -p $(WEBFILES)
 	$(DC) $(FILE) up -d
 
 # Stops and removes services defined in 'docker-compose.yml',
@@ -35,8 +39,8 @@ clean:
 
 # Removes local wordpress and mariadb files !Use at own Risk!
 rm_local:
-	rm -rf /home/mliew/data/database/*
-	rm -rf /home/mliew/data/webfiles/*
+	rm -rf $(DATABASE)/*
+	rm -rf $(WEBFILES)/*
 
 # Rebuilds everything
 re: clean build up

@@ -14,6 +14,8 @@ services:
       - webfiles:/var/www/html
     env_file:
       - .env
+    depends_on:
+      - wordpress
 
   wordpress:
     container_name: wordpress
@@ -50,13 +52,13 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/mliew/data/database
+      device: /Users/mliew/data/database
       o: bind
   webfiles:
     driver: local
     driver_opts:
       type: none
-      device: /home/mliew/data/webfiles
+      device: /Users/mliew/data/webfiles
       o: bind
 
 networks:

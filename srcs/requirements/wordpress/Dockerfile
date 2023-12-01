@@ -1,4 +1,4 @@
-FROM debian:bullseye
+FROM debian:buster
 
 RUN apt-get update
 RUN apt-get install -y \
@@ -6,7 +6,7 @@ RUN apt-get install -y \
 	php-mysql \
 	php-fpm
 
-COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d/
+COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/
 
 RUN mkdir /run/php
 
@@ -19,4 +19,4 @@ EXPOSE 9000
 
 ENTRYPOINT ["/usr/local/bin/create_wordpress.sh"]
 
-CMD ["/usr/sbin/php-fpm7.4", "-F"]
+CMD ["/usr/sbin/php-fpm7.3", "-F"]
